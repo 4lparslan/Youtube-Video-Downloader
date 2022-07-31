@@ -1,5 +1,5 @@
 # Youtube-Video-Downloader
-Download playlist or specific videos.
+Download a playlist or specific videos.
 
 ## Install
 ```
