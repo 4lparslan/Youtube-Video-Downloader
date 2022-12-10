@@ -83,4 +83,4 @@ elif args.ml:
         the_video = the_video.streams.get_highest_resolution()
         print(str(count) + "/" + str(total))
         downloader(the_video)
-    print(count + "file has been downloaded succesfully.")
+    print(str(count) + "file has been downloaded succesfully.")
