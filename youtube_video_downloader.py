@@ -10,6 +10,7 @@ group = parser.add_mutually_exclusive_group()
 group.add_argument('-o', type=str, help='Downloads only one video. Paste the URL of your video.')
 group.add_argument('-p', type=str, help='Downloads a playlist. Paste the URL of your playlist.')
 group.add_argument('-sp', type=str, nargs='+', help='Downloads a part of playlist. Paste the URL of your playlist and specify the first and last video number. You can specify only the starting number.')
+group.add_argument('-ml', type=str, help='Download your own list from txt file.')
 args = parser.parse_args()
 
 #Creates a folder for downloaded video files
@@ -30,7 +31,7 @@ if args.o:
     print("Please wait...")
     my_video = my_video.streams.get_highest_resolution()
     downloader(my_video)
-    print("Download successful")
+    print("Download successful.")
 
 elif args.p:
     p = Playlist(args.p)
@@ -45,7 +46,7 @@ elif args.p:
         downloader(my_video)
         counter+=1
     
-    print("Download successful")
+    print("Download successful.")
 
 elif args.sp:
     p = Playlist(args.sp[0])
@@ -61,4 +62,25 @@ elif args.sp:
             downloader(my_video)
         counter+=1
     
-    print("Download successful")
+    print("Download successful.")
+
+elif args.ml:
+    path = args.ml
+    abspath = os.path.abspath(path)
+    
+    # Using readlines()
+    file = open(abspath, 'r')
+    Lines = file.readlines()
+    total = len(Lines)
+      
+    count = 0
+    # Strips the newline character
+    for line in Lines:
+        count += 1
+        #print("Line{}: {}".format(count, line.strip()))
+
+        the_video = YouTube(line)
+        the_video = the_video.streams.get_highest_resolution()
+        print(str(count) + "/" + str(total))
+        downloader(the_video)
+    print(count + "file has been downloaded succesfully.")
